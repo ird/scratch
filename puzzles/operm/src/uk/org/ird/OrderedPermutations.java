@@ -1,6 +1,7 @@
 package uk.org.ird;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class OrderedPermutations {
     private int[] set;
@@ -56,9 +57,15 @@ public class OrderedPermutations {
     }
 
     public static void main(String[] args) {
-        int[] list = {0,1,2,3,4,5,6,7,8,9};
+        int[] list = {0,1,2,9,4,5,6,7,8,3};
         OrderedPermutations op = new OrderedPermutations(list);
         op.succ(1000000);
         System.out.println(op);
+
+        LinkedList<Integer> ll = new LinkedList<Integer>();
+        for(int i : list)
+            ll.add(i);
+        OrderedPermutations2 op2 = new OrderedPermutations2(ll);
+        System.out.println(op2);
     }
 }
