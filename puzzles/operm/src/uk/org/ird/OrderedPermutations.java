@@ -66,6 +66,7 @@ public class OrderedPermutations {
         for(int i : list)
             ll.add(i);
         OrderedPermutations2 op2 = new OrderedPermutations2(ll);
+        op2.succ( 1000000);
         System.out.println(op2);
     }
 }
