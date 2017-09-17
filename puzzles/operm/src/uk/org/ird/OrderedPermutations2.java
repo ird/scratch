@@ -1,3 +1,5 @@
+/* Project Euler #24 */
+
 package uk.org.ird;
 
 import java.util.Collections;
