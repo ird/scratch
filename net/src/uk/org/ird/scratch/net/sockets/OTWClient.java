@@ -1,4 +1,11 @@
-/* OTW Vortex 1 */
+/*
+    OTW Vortex 1
+    "TIL 17/9/17"
+    - Java chars = 2 bytes
+    - All ints are signed
+    - if Endianness matters, don't use Socket, even DataInput/OutputStream (which have their own ordering)
+
+    */
 package uk.org.ird.scratch.net.sockets;
 
 import java.io.*;
