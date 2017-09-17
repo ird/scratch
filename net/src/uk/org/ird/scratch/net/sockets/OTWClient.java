@@ -3,7 +3,8 @@
     "TIL 17/9/17"
     - Java chars = 2 bytes
     - All ints are signed
-    - if Endianness matters, don't use Socket, even DataInput/OutputStream (which have their own ordering)
+    - if Endianness matters, don't use Socket, even DataInput/OutputStream
+        (which have their own ordering)
 
     */
 package uk.org.ird.scratch.net.sockets;
@@ -18,34 +19,30 @@ import java.nio.channels.SocketChannel;
 public class OTWClient {
     String url;
     int port;
+
     public OTWClient(String url, int port) {
         this.url = url;
         this.port = port;
     }
 
     public String vortex0() throws IOException{
-
         StringBuilder sb = new StringBuilder();
-        try (
-                SocketChannel socket = SocketChannel.open();
-        ) {
+        try ( SocketChannel socket = SocketChannel.open() ) {
             socket.connect(new InetSocketAddress(url,port));
-            ByteBuffer buf = ByteBuffer.allocateDirect(64).order(ByteOrder.LITTLE_ENDIAN);
-
+            ByteBuffer buf =
+                ByteBuffer.allocateDirect(64).order(ByteOrder.LITTLE_ENDIAN);
             /** CHALLENGE **/
             /* writing to buf <- socket */
             socket.read(buf);
-
             /*reading from buf -> total */
             buf.flip();
-            long total = accum(buf); //4x 32-bit unsigned ints
+            long total = accumInts(buf); //4x 32-bit unsigned ints
 
             /** RESPONSE **/
             /* writing to buf <- total */
             buf.flip();
             buf.clear();
             buf.putLong(total);
-
             /* reading from buf -> socket */
             buf.flip();
             socket.write(buf);
@@ -55,13 +52,11 @@ public class OTWClient {
             buf.flip();
             buf.clear();
             socket.read(buf);
-
             /* reading from buf -> string */
             buf.flip();
             while(buf.remaining() > 0){
                 sb.append((char)buf.get());
             }
-
             socket.close();
         }
         catch (BufferUnderflowException e) {
@@ -72,12 +67,13 @@ public class OTWClient {
         return sb.toString();
     }
 
-    private long accum(ByteBuffer buf){
+    private long accumInts(ByteBuffer buf){
         long total = 0;
         for(int i=0;i<4;i++){
             byte[] dst = new byte[4];
             buf.get(dst, 0,4);
-            total += ByteBuffer.wrap(dst).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            total +=
+                ByteBuffer.wrap(dst).order(ByteOrder.LITTLE_ENDIAN).getInt();
         }
         return total;
     }
