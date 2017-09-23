@@ -1,0 +1,7 @@
+*.class
+*.jar
+
+.gradle
+/build/
+!gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
