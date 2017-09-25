@@ -1,0 +1,11 @@
+*.class
+*.jar
+
+*.swp
+gradle-app.setting
+
+!gradle-wrapper.jar
+
+.gradle/
+build/
+
