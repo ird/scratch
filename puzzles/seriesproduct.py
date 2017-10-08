@@ -1,4 +1,5 @@
-""" project euler #8
+""" seriesproduct.py
+Project euler #8.
 Find the largest 13-digit product of a sequence in a
 1000 digit number
 """
@@ -52,10 +53,6 @@ def prod(s):
     return total
 
 
-def main():
+if __name__ == "__main__":
     print(series_product(NUM, 4))
     print(series_product(NUM, 13))
-
-
-if __name__ == "__main__":
-    main()
