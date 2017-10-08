@@ -4,7 +4,7 @@ def next_perm(arr):
         return k
     j = rightmost_gt(arr, k)
     arr[k], arr[j] = arr[j], arr[k]
-    arr[k+1:] = arr[k+1:][::-1]
+    arr[k+1:] = arr[:k:-1]  # reverse from k+1th item onwards
     return arr
 
 
@@ -27,12 +27,16 @@ def last_ordered_pair(arr):
 
 def main():
     arr = []  # set up a test list [0,1,..,8]
-    for x in range(6):
+    for x in range(10):
         arr.append(x)
     s = ""
+    i = 0
     while s != -1:
         s = next_perm(arr)
-        print(s)
+        i = i + 1
+        if i == 1000000:
+            print(str(i) + "th permutation = " + str(s))
+            break
 
 
 if __name__ == '__main__':
