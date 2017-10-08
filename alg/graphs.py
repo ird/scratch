@@ -13,6 +13,7 @@ def enum_edges(G):
 
 def is_path(G, start, dest):
     reachable = {}
+    reachable[start] = ''
     for x in G[start]:
         reachable[x] = start
     open_set = list(reachable.keys())
