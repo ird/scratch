@@ -59,13 +59,9 @@ def move_right(grid, size):
     pass
 
 
-def main():
+if __name__ == "__main__":
     grid = [2, 1, 7, 4, 3, 6, 5, 0, 8]
     print(display(grid, 3))
     move_up(grid, 3)
     print(display(grid, 3))
     pass
-
-
-if __name__ == "__main__":
-    main()
