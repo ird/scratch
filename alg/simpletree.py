@@ -37,8 +37,8 @@ class Tree:
                 self.arr[dest] = value
         return dest
 
-    def prnt(self):
-        print(self.arr)
+    def __repr__(self):
+        return str(self.arr)
 
 
 if __name__ == '__main__':
@@ -46,4 +46,4 @@ if __name__ == '__main__':
     t.insert(5)
     t.insert(7, 5)
     t.insert(1, 5)
-    t.prnt()
+    print(t)
