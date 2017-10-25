@@ -1,3 +1,4 @@
+import sys
 from math import floor
 
 
@@ -73,8 +74,8 @@ def extract(date_str):
 
 
 if __name__ == '__main__':
-    start = "25/6/2018"
-    end = "19/9/2018"
+    start = sys.argv[1]
+    end = sys.argv[2]
     days = days_between(end, start)
     print("There are", days, "days between", start, "and", end)
     print(working_days(start, days), "of these are weekdays")
