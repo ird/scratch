@@ -38,8 +38,11 @@ def working_days(date_str, days):
     w = weekday(date_str)  # make Mon = 0 ... Sat = 5, Sun = 6
     x = (w + rem_days) % 7
     if x < w:
-        # gone over a full weekend
-        res += rem_days - 2
+        # gone over a weekend
+        if w == 6:
+            res += rem_days - 1  # half weeked (started on Sun)
+        else:
+            res += rem_days - 2  # full weekend
     else:
         res += rem_days
     if x == 6:
