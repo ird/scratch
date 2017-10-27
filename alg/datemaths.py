@@ -93,9 +93,16 @@ def datestr_sub1(date_str):
     return date_str
 
 
-if __name__ == '__main__':
+def main():
+    if len(sys.argv) != 3:
+        print("USAGE: python3 datemaths DD/MM/YYYY DD/MM/YYYY")
+        sys.exit(1)
     start = sys.argv[1]
     end = sys.argv[2]
     days = days_between(end, start)
     print("There are", days, "days between", start, "and", end)
     print(working_days(start, days), "of these are weekdays")
+
+
+if __name__ == '__main__':
+    main()
