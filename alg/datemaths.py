@@ -13,10 +13,10 @@ def days_between(date_a, date_b):
             else:
                 (a, b) = (b, a)
                 break
-    days_in = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     days = b['day'] - a['day']
-    for i in range(a['month'], b['month']):
-        days += days_in[i]
+    months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    for m in range(a['month'], b['month']):
+        days += months[m]
     days += 365 * (b['year'] - a['year'])
     days += leap_years_between(a, b)
     return days
@@ -70,6 +70,27 @@ def weekday(date_str):
 def extract(date_str):
     (d, m, y) = date_str.split("/")
     return {'day': int(d), 'month': int(m), 'year': int(y)}
+
+
+def test_datemaths():
+    # assert working_days decreases or stays the same as the period shortens
+    start = "1/1/2010"
+    end = "31/3/2010"
+    days = days_between(start, end)
+    weekdays = working_days(start, days)
+    for i in range(31):
+        end = datestr_sub1(end)
+        w = working_days(start, days_between(start, end))
+        assert(w <= weekdays)
+        weekdays = w
+
+
+def datestr_sub1(date_str):
+    'for use in tests'
+    t = extract(date_str)
+    if t['day'] > 1:
+        return "{}/{}/{}".format(t['day'] - 1, t['month'], t['year'])
+    return date_str
 
 
 if __name__ == '__main__':
