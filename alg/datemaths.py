@@ -14,16 +14,12 @@ def days_between(date_a, date_b):
                 (a, b) = (b, a)
                 break
     days_in = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    days_a = a['day']  # cumulative days in the year
-    days_b = b['day']
-    for i in range(a['month']):
-        days_a += days_in[i]
-    for i in range(b['month']):
-        days_b += days_in[i]
-    r = days_b - days_a
-    r += 365 * (b['year'] - a['year'])
-    r += leap_years_between(a, b)
-    return r
+    days = b['day'] - a['day']
+    for i in range(a['month'], b['month']):
+        days += days_in[i]
+    days += 365 * (b['year'] - a['year'])
+    days += leap_years_between(a, b)
+    return days
 
 
 def leap_years_between(a, b):
