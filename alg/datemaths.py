@@ -1,5 +1,4 @@
-import sys
-from math import floor
+import math
 
 
 def days_between(date_a, date_b):
@@ -28,7 +27,7 @@ def leap_years_between(a, b):
 
 
 def working_days(date_str, days):
-    whole_weeks = floor(days/7)
+    whole_weeks = math.floor(days/7)
     rem_days = days - whole_weeks*7
     res = whole_weeks*5
     w = weekday(date_str)  # make Mon = 0 ... Sat = 5, Sun = 6
@@ -36,7 +35,7 @@ def working_days(date_str, days):
     if x < w:
         # gone over a weekend
         if w == 6:
-            res += rem_days - 1  # half weeked (started on Sun)
+            res += rem_days - 1  # half weekend (started on Sun)
         else:
             res += rem_days - 2  # full weekend
     else:
@@ -63,7 +62,8 @@ def weekday(date_str):
     c = int(Y / 100)
     y = Y - c * 100
     d = date['day']
-    w = (d + floor(2.6*m - 0.2) + y + floor(y / 4) + floor(c / 4) - 2*c) % 7
+    w = (d + math.floor(2.6*m - 0.2) + y + math.floor(y / 4)
+           + math.floor(c / 4) - 2*c) % 7
     return (w - 1) % 7  # shift to make Mon=0 etc.
 
 
@@ -105,4 +105,5 @@ def main():
 
 
 if __name__ == '__main__':
+    import sys
     main()
