@@ -14,8 +14,12 @@ def days_between(date_a, date_b):
                 break
     days = b['day'] - a['day']
     months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    for m in range(a['month'], b['month']):
-        days += months[m]
+    if a['month'] < b['month']:
+        for m in range(a['month'], b['month']):
+            days += months[m]
+    else:
+        for m in range(b['month'], a['month']):
+            days -= months[m]
     days += 365 * (b['year'] - a['year'])
     days += leap_years_between(a, b)
     return days
