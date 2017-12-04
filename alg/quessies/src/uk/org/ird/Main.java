@@ -16,21 +16,56 @@ public class Main {
     }
 
     private static int pivot(LinkedList<Integer> A, int low, int high) {
-        int pivotValue = A.get(high-1);
-        int pivotPos = A.indexOf(pivotValue);
-        for (int i=low; i<=high; ++i) {
-            if (A.get(i) > pivotValue && i < pivotPos) {
+        int pivot = high - 1;
+        for (int i=low; i<=high; i++) {
+            if (A.get(i) > A.get(pivot) && i < pivot) {
                 int e = A.remove(i);
-                A.add(pivotPos, e);
-                pivotPos--;
+                A.add(pivot, e);
+                pivot--;
             }
-            if (A.get(i) < pivotValue && i > pivotPos) {
+            if (A.get(i) < A.get(pivot) && i > pivot) {
                 int e = A.remove(i);
-                A.add(pivotPos-1, e);
-                pivotPos++;
+                A.add(pivot-1, e);
+                pivot++;
             }
         }
-        return A.indexOf(pivotValue);
+        return pivot;
+    }
+
+    private static LinkedList<Integer> mergesort(LinkedList<Integer> unsorted) {
+        if(unsorted.size() == 1) {
+            return unsorted;
+        }
+        LinkedList<Integer> left = new LinkedList<>();
+        LinkedList<Integer> right = new LinkedList<>();
+        int i = 0;
+        for (; i < unsorted.size()/2; i++) {
+            left.add(unsorted.get(i));
+        }
+        for(; i< unsorted.size(); i++) {
+            right.add(unsorted.get(i));
+        }
+        left = mergesort(left);
+        right = mergesort(right);
+        return merge(left, right);
+    }
+
+    private static LinkedList<Integer> merge(LinkedList<Integer> left, LinkedList<Integer> right) {
+        // merge two already sorted lists
+        LinkedList<Integer> merged = new LinkedList<>();
+        while(!left.isEmpty() || !right.isEmpty()) {
+            if(left.isEmpty()){
+                merged.addAll(right);
+                break;
+            }
+            if(right.isEmpty()){
+                merged.addAll(left);
+                break;
+            }
+            Integer e = left.peek() < right.peek() ? left.remove() : right.remove();
+            merged.add(e);
+        }
+        return merged;
     }
 
     private static LinkedList<Integer> bubblesort(LinkedList<Integer> unsorted) {
@@ -71,6 +106,7 @@ public class Main {
         LinkedList<Integer> u = new LinkedList<Integer>(Arrays.asList(5,20,1,10,100,32,11));
         // System.out.println(bubblesort(u));
         // System.out.println(insertionsort(u));
+        System.out.println("mergesort: " + mergesort(u));
         System.out.println("Before qsort: "+ u);
         qsort(u, 0, u.size()-1);
         System.out.println("After qsort: " + u);
